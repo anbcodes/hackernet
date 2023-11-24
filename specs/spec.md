@@ -6,7 +6,7 @@ something like websockets or even physical wires.
 
 You can find the different protocols below
 
-- [Routing Protocol](/routing.md)
+- [Routing Protocol](./routing.md)
 - Name Protocol
 - Transport Protocol
 - Document Protocol
