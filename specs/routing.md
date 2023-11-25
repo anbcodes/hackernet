@@ -4,12 +4,12 @@ This is the equivalent of the IP protocol on the normal internet.
 
 An RP packet contains the following
 
-- Version (1 byte): the RP version, for now its just 1
-- Source (8 bytes): the source address
-- Dest (8 bytes): the destination address
-- TTL (1 byte): the time to live (prevents infinite loops)
-- Length (2 bytes): the length of the data in bytes
-- Data: the data
+- (1 byte) version: 0
+- (1 byte) hop limit: the remaining number of hops the packet can make
+- (2 bytes) payload length
+- (8 bytes) source address
+- (8 bytes) destination address
+- ("length" bytes) data
 
 ## Reserved addresses
 
