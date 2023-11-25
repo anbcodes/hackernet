@@ -1,23 +1,19 @@
 import dgram from 'dgram';
+import net from 'net';
 
-const socket = dgram.createSocket('udp4');
+const udp = dgram.createSocket('udp4');
 
-const clients = [
-  {
-    wire: {
-      ip: '127.0.0.1',
-      port: 13001,
-    },
-    addr: new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01])
-  },
-  {
-    wire: {
-      ip: '127.0.0.1',
-      port: 13002,
-    },
-    addr: new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02])
-  }
-];
+type Wire = {
+  ip: string,
+  port: number,
+}
+
+type Client = {
+  wire: Wire,
+  addr: Uint8Array,
+}
+
+const clients: Client[] = [];
 
 interface Packet {
   version: number;
@@ -72,7 +68,9 @@ function arraysEqual(arr1: Uint8Array, arr2: Uint8Array): boolean {
   return arr1.every((value, index) => value === arr2[index])
 }
 
-socket.on('message', (msg) => {
+const routerAddr = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+
+udp.on('message', (msg, rinfo) => {
   console.log(msg);
   const packet = parseMessage(msg);
   console.log(packet);
@@ -82,13 +80,26 @@ socket.on('message', (msg) => {
     return;
   }
 
+  if (arraysEqual(packet.dest, routerAddr)) {
+    console.log("Adding client", rinfo.address, rinfo.port, packet.source);
+    clients.push({
+      wire: {
+        ip: rinfo.address,
+        port: rinfo.port,
+      },
+      addr: packet.source,
+    });
+    return;
+  }
+
   packet.hoplimit -= 1;
 
   clients.forEach((client) => {
     if (arraysEqual(client.addr, packet.dest)) {
-      socket.send(encodePacket(packet), client.wire.port, client.wire.ip);
+      console.log("Sending to", client.wire.ip, client.wire.port);
+      udp.send(encodePacket(packet), client.wire.port, client.wire.ip);
     }
   });
 });
 
-socket.bind(13337);
+udp.bind(13337);

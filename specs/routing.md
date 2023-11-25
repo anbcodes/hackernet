@@ -11,6 +11,20 @@ An RP packet contains the following
 - (8 bytes) destination address
 - ("length" bytes) data
 
+## Formatting addresses
+
+Addresses can be written as any number of the segments seperated by dots.
+
+All of the following are equivalent ways to write `0.0.0.0.0.0.0.1`
+
+```
+0.0.0.0.0.0.0.1
+0.0.0.1
+0.1
+000.01
+1
+```
+
 ## Reserved addresses
 
 WIP
