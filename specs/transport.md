@@ -1,10 +1,10 @@
 # Transport spec
 
-There are two transport protocols: Hacker Transport Protocol (connectionless)
-and Hacker Connection Protocol (connection oriented). The first is like UDP and
-the second is like TCP.
+There are two transport protocols: Hacker Datagram Protocol (connectionless) and
+Hacker Connection Protocol (connection oriented). The first is like UDP and the
+second is like TCP.
 
-## Hacker Transport Protocol (HTP)
+## Hacker Datagram Protocol (HDP)
 
 The connectionless protocol sends packets formatted like the following
 

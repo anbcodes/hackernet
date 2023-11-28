@@ -8,6 +8,6 @@ You can find the different protocols below
 
 - [H Protocol (Routing Protocol)](./routing.md)
 - Name Protocol
-- [Transport Protocols (HTP and HCP)](./transport.md)
+- [Transport Protocols (HDP and HCP)](./transport.md)
 - Document Protocol
 - Application Protocol
