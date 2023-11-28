@@ -1,8 +1,8 @@
-# Routing Protocol
+# H Protocol
 
 This is the equivalent of the IP protocol on the normal internet.
 
-An RP packet contains the following
+An H packet contains the following
 
 - (1 byte) version: 0
 - (1 byte) hop limit: the remaining number of hops the packet can make
@@ -13,7 +13,7 @@ An RP packet contains the following
 
 ## Formatting addresses
 
-Addresses can be written as any number of the segments seperated by dots.
+H addresses can be written as any number of the segments seperated by dots.
 
 All of the following are equivalent ways to write `0.0.0.0.0.0.0.1`
 

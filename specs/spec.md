@@ -6,8 +6,8 @@ something like websockets or even physical wires.
 
 You can find the different protocols below
 
-- [Routing Protocol](./routing.md)
+- [H Protocol (Routing Protocol)](./routing.md)
 - Name Protocol
-- Transport Protocol
+- [Transport Protocols (HTP and HCP)](./transport.md)
 - Document Protocol
 - Application Protocol
