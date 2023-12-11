@@ -49,6 +49,10 @@ export function randomPort(): number {
   return Math.floor(Math.random() * 65536);
 }
 
+/**
+ * A Hacker Datagram Protocol Socket
+ * A HDP socket lets you communicate over something like UDP, but with the Hacker Protocol.
+ */
 export class HDPSocket {
   public port: number | undefined;
   public hpAddress: Uint8Array;
@@ -76,10 +80,22 @@ export class HDPSocket {
     }
   }
 
+  /**
+   * Sends a packet to a given address
+   * @param addr the address
+   * @param packet the packet
+   */
   public sendPacket(addr: Uint8Array | string, packet: HDPPacket) {
     const rawPacket = encodeHDPPacket(packet);
     this.hpClient.send(parseAddress(addr), rawPacket);
   }
+
+  /**
+   * Sends data to a given port and address
+   * @param addr the address
+   * @param port the port
+   * @param data the data
+   */
 
   public send(addr: Uint8Array | string, port: number, data: Uint8Array) {
     this.sendPacket(addr, {
@@ -92,6 +108,11 @@ export class HDPSocket {
 
   }
 
+  /**
+   * Registers a function to listen for packets
+   * If the port is specified in the constructor, it will only listen for packets on that port.
+   * @param listener the listener
+   */
   public onPacket(listener: (packet: HDPPacket, raw: { packet: HPPacket, rinfo: dgram.RemoteInfo }) => void) {
     this.listeners.packet.push(listener);
   }
