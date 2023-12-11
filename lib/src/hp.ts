@@ -63,7 +63,11 @@ export function decodePacket(buf: Uint8Array): HPPacket {
  * @param addr The address to parse
  * @returns The parsed address
  */
-export function parseAddress(addr: string) {
+export function parseAddress(addr: string | Uint8Array) {
+  if (typeof addr !== 'string') {
+    return addr;
+  }
+
   const parts = addr.split('.');
   const addrBuf = new Uint8Array(8);
   addrBuf.set(parts.map((part) => parseInt(part, 10)), 8 - parts.length);
